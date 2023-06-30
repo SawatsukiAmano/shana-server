@@ -1,0 +1,4 @@
+﻿
+using DbMigrator;
+
+Init.InitDB();
