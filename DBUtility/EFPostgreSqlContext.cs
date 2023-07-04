@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+
 
 namespace DBUtility
 {
@@ -33,7 +28,7 @@ namespace DBUtility
 
         public DbSet<SysRole> SysRole { get; set; }
 
-        public DbSet<SysUserLoginHistroy> SysUserLoginHistroy { get; set; }
+        public DbSet<Signin> SysUserLoginHistroy { get; set; }
 
         public DbSet<AdmDepartment> AdmDepartment { get; set; }
 
@@ -43,22 +38,37 @@ namespace DBUtility
 
         public DbSet<SysRoleNode> SysRoleNode { get; set; }
 
-        public DbSet<SysRoleUser> sysRoleUser { get; set; }
+        public DbSet<SysRoleUser> SysRoleUser { get; set; }
+
+        public DbSet<SysUserLoginRecord> SysUserLoginRecord { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region 设置蛇形命名
+            #region 设置映射
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
+                //蛇形命名表
                 modelBuilder.Entity(entityType.Name).ToTable(CommonHelper.CV.PascalUp2Snake(entityType.Name.ToString().Split(".").LastOrDefault()));
+
                 foreach (var property in entityType.GetProperties())
                 {
+                    //蛇形命名字段
                     property.SetColumnName(CommonHelper.CV.PascalUp2Snake(property.Name));
+                    //备注
+                    var remarksField = string.Empty;
+                    var propertyInfoList = property.PropertyInfo.CustomAttributes;
+                    foreach (var item in propertyInfoList)
+                    {
+                        if (item.AttributeType == typeof(DescriptionAttribute)) remarksField = string.Join(",", item.ConstructorArguments.Select(r => r.Value?.ToString()));
+                    }
+                    if (remarksField.Length > 0) property.SetComment(remarksField);
                 }
+
             }
             #endregion
         }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

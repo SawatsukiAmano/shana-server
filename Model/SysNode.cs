@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model
+﻿namespace Model
 {
-    /// <summary>
-    /// 系统功能表
-    /// </summary>
+    [Description("系统功能表")]
     public class SysNode
     {
         [Key]

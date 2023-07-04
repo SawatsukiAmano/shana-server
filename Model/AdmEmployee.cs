@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model
+﻿namespace Model
 {
-    /// <summary>
-    /// 员工表
-    /// </summary>
+    [Description("员工表")]
     public class AdmEmployee
     {
         [Key]
@@ -30,6 +20,7 @@ namespace Model
         [Description("职位")]
         public string Title { get; set; }
 
+        [MaxLength(50)]
         [Description("行政级别")]
         public int Level { get; set; }
     }

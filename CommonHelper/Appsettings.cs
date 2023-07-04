@@ -8,77 +8,70 @@ namespace CommonHelper
     /// </summary>
     public class Appsettings
     {
-        public static IConfiguration Configuration { get; set; }
-        static string contentPath { get; set; }
+        private static IConfiguration _configuration;
 
         public Appsettings(string contentPath)
         {
-            string Path = "appsettings.json";
+            string path = "appsettings.json";
 
             //如果你把配置文件 是 根据环境变量来分开了，可以这样写
-            //Path = $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json";
+            path = $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json";
 
-            Configuration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
                .SetBasePath(contentPath)
-               .Add(new JsonConfigurationSource { Path = Path, Optional = false, ReloadOnChange = true })//这样的话，可以直接读目录里的json文件，而不是 bin 文件夹下的，所以不用修改复制属性
+               .Add(new JsonConfigurationSource { Path = path, Optional = false, ReloadOnChange = true })//这样的话，可以直接读目录里的json文件，而不是 bin 文件夹下的，所以不用修改复制属性
                .Build();
         }
 
         public Appsettings(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+        }
+
+        #region 静态方法
+
+        public static string ReadNode(string session)
+        {
+            string str = _configuration[session];
+            if (!string.IsNullOrEmpty(str)) return str;
+            return string.Empty;
+        }
+        /// <summary>
+        /// 读取指定节点信息
+        /// </summary>
+        /// <param name="sessions">节点名称</param>
+        /// <returns></returns>
+        public static string ReadNode(params string[] sessions)
+        {
+            if (sessions.Length == 1) return _configuration[sessions[0]];
+            string? str = _configuration[string.Join(":", sessions)];
+            if (!string.IsNullOrEmpty(str)) return str;
+            return string.Empty;
         }
 
         /// <summary>
-        /// 封装要操作的字符
+        /// 读取实体信息
         /// </summary>
-        /// <param name="sections">节点配置</param>
+        /// <param name="sessions">节点名称</param>
         /// <returns></returns>
-        public static string app(params string[] sections)
+        public static T ReadT<T>(params string[] sessions) where T : class, new()
         {
-            try
-            {
-                if (sections.Any())
-                {
-                    return Configuration[string.Join(":", sections)];
-                }
-            }
-            catch (Exception) { }
-
-            return "";
+            T data = new();
+            _configuration.Bind(string.Join(":", sessions), data);
+            return data;
         }
 
         /// <summary>
-        /// 递归获取配置信息数组
+        /// 读取实体数组信息
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sections"></param>
+        /// <param name="sessions">节点名称</param>
         /// <returns></returns>
-        public static List<T> app<T>(params string[] sections)
+        public static List<T> ReadList<T>(params string[] sessions) where T : class
         {
-            List<T> list = new List<T>();
-            // 引用 Microsoft.Extensions.Configuration.Binder 包
-            Configuration.Bind(string.Join(":", sections), list);
+            List<T> list = new();
+            _configuration.Bind(string.Join(":", sessions), list);
             return list;
         }
-
-        public static T Get<T>(params string[] sections) => Configuration.GetSection(string.Join(":", sections)).Get<T>();
-
-        /// <summary>
-        /// 根据路径  configuration["App:Name"];
-        /// </summary>
-        /// <param name="sectionsPath"></param>
-        /// <returns></returns>
-        public static string GetValue(string sectionsPath)
-        {
-            try
-            {
-                return Configuration[sectionsPath];
-            }
-            catch (Exception) { }
-
-            return "";
-
-        }
+        #endregion
     }
 }

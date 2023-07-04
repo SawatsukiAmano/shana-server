@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model
+﻿namespace Model
 {
+    [Description("用户表")]
     public class SysUser
     {
-
         [Key]
         [MaxLength(50)]
         [Description("主键")]
@@ -44,4 +35,6 @@ namespace Model
         //    }
         //}
     }
+
+
 }

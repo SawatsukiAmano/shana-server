@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-
-namespace Model
+﻿namespace Model
 {
+    [Description("部门")]
     public class AdmDepartment
     {
         [Key]
@@ -14,6 +8,6 @@ namespace Model
         public string DepartmentID { get; set; }
 
         [MaxLength(50)]
-        public string DepartmentName { get;set; }
+        public string DepartmentName { get; set; }
     }
 }
