@@ -1,4 +1,6 @@
-﻿namespace API.Controllers
+﻿using BLL;
+
+namespace API.Controllers
 {
     public class AuthController : BaseController
     {
@@ -6,10 +8,21 @@
         [HttpGet]
         public string TestConf(string str)
         {
-
             return Appsettings.ReadNode(str);
         }
 
+
+        [HttpPost]
+        public ActionResult Login()
+        {
+            var one = new BaseBLL<SysUser>().FirstOrDefaultSync(x => x.UserName == "1").Result;
+            if(one == null) Content("false");
+            if (one != null)
+            {
+
+            }
+            return Content("false");
+        }
 
 
         string GenerateJwtToken(string id, string name, string role)

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Base
 {
-    public class BaseDAL<T> : IBaseDAL<T> where T : class, new()
+    public class BaseDAL<T> : IBaseDAL<T> where T : class
     {
 
         private readonly EFPostgreSqlContext _context;

@@ -1,10 +1,10 @@
 ﻿namespace Model
 {
-    [Description("用户登录记录")]
+    [Description("用户登录记录 1-n")]
     public class SysUserLoginRecord
     {
         [Key]
-        public int SulcID { get; set; }
+        public int UlrID { get; set; }
 
         [MaxLength(50)]
         public string UserID { get; set; }

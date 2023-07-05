@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    [Description("注册记录")]
+    [Description("注册记录 1-n")]
     public class Signin
     {
         [Key]

@@ -3,17 +3,19 @@
 
 namespace BLL.Base
 {
-    public class BaseBLL<T> : IBaseBLL<T> where T : class, new()
+    public class BaseBLL<T> : IBaseBLL<T> where T : class
     {
-        public readonly IBaseDAL<T> _baseDal;
+        protected readonly IBaseDAL<T> _baseDal;
         public BaseBLL()
         {
             _baseDal = new BaseDAL<T>();
         }
 
         #region DQL Sync
-        async Task<T> IBaseBLL<T>.FirstOrDefaultSync(Expression<Func<T, bool>> expression) =>
-         await _baseDal.FirstOrDefaultSync(expression);
+        public async Task<T> FirstOrDefaultSync(Expression<Func<T, bool>> expression)
+        {
+            return await _baseDal.FirstOrDefaultSync(expression);
+        }
 
         async Task<IList<T>> IBaseBLL<T>.WhereSync(Expression<Func<T, bool>> expression) =>
            await _baseDal.WhereSync(expression);

@@ -38,7 +38,7 @@ namespace DBUtility
 
         public DbSet<SysRoleNode> SysRoleNode { get; set; }
 
-        public DbSet<SysRoleUser> SysRoleUser { get; set; }
+        public DbSet<SysUserRole> SysUserRole { get; set; }
 
         public DbSet<SysUserLoginRecord> SysUserLoginRecord { get; set; }
         #endregion
@@ -48,14 +48,22 @@ namespace DBUtility
             #region 设置映射
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                //蛇形命名表
-                modelBuilder.Entity(entityType.Name).ToTable(CommonHelper.CV.PascalUp2Snake(entityType.Name.ToString().Split(".").LastOrDefault()));
+                modelBuilder.Entity(entityType.Name).ToTable(CommonHelper.CV.PascalUp2Snake(entityType.ClrType.Name));
+                #region 数据库表名注释
+                var remarksTable = string.Empty;
+                var propertyEntityInfoList = entityType.ClrType.CustomAttributes;
+                foreach (var item in propertyEntityInfoList)
+                {
+                    if (item.AttributeType == typeof(DescriptionAttribute)) remarksTable = string.Join(",", item.ConstructorArguments.Select(r => r.Value?.ToString()));
+                }
+                if (remarksTable.Length > 0) entityType.SetComment(remarksTable);
+                #endregion
 
                 foreach (var property in entityType.GetProperties())
                 {
-                    //蛇形命名字段
+                    //蛇形命名
                     property.SetColumnName(CommonHelper.CV.PascalUp2Snake(property.Name));
-                    //备注
+                    #region 数据库字段注释
                     var remarksField = string.Empty;
                     var propertyInfoList = property.PropertyInfo.CustomAttributes;
                     foreach (var item in propertyInfoList)
@@ -63,6 +71,7 @@ namespace DBUtility
                         if (item.AttributeType == typeof(DescriptionAttribute)) remarksField = string.Join(",", item.ConstructorArguments.Select(r => r.Value?.ToString()));
                     }
                     if (remarksField.Length > 0) property.SetComment(remarksField);
+                    #endregion
                 }
 
             }

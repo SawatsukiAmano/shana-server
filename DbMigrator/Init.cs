@@ -51,12 +51,12 @@ namespace DbMigrator
                 };
                 db.Add(sysRole);
 
-                SysRoleUser sysRoleUser = new SysRoleUser()
+                SysUserRole sysUserRole = new SysUserRole()
                 {
                     RoleID = sysRole.RoleID,
                     UserID = user.UserID,
                 };
-                db.Add(sysRoleUser);
+                db.Add(sysUserRole);
 
                 SysNode sysNode = new SysNode()
                 {

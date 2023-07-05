@@ -1,5 +1,6 @@
 ﻿namespace Model
 {
+    [Description("权限——功能 n-m")]
     public class SysRoleNode
     {
         [Key]

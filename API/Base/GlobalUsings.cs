@@ -9,3 +9,6 @@ global using Model;
 global using Newtonsoft.Json.Linq;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
+global using BLL.Base;
+global using System.ComponentModel;
+

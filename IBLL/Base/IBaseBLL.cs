@@ -17,7 +17,7 @@ namespace IBLL.Base
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
-        Task<T> FirstOrDefaultSync(Expression<Func<T, bool>> expression);
+        public Task<T> FirstOrDefaultSync(Expression<Func<T, bool>> expression);
 
         /// <summary>
         /// 查询集合
