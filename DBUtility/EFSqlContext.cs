@@ -9,11 +9,11 @@ namespace DBUtility
 
         public EFSqlContext() : base()
         {
-            string appEngine = Appsettings.ReadNode("ConnectionStrings:PgSql");
-            if (!string.IsNullOrWhiteSpace(appEngine)) sqlEngine = appEngine;
-
-            string tomlEngine = TomlSettings.ReadNode("ConnectionStrings:PgSql");
+            string appEngine = Appsettings.ReadNode("ConnectionStrings:SqlEngine");
+            if (!string.IsNullOrWhiteSpace(appEngine)) { sqlEngine = appEngine; goto TomlEend; }
+            string tomlEngine = TomlSettings.ReadNode("ConnectionStrings:SqlEngine");
             if (!string.IsNullOrWhiteSpace(appEngine)) sqlEngine = tomlEngine;
+            TomlEend:;
             switch (sqlEngine)
             {
                 case "PgSql":
@@ -29,11 +29,11 @@ namespace DBUtility
         }
         public EFSqlContext(bool delete) : base()
         {
-            string appEngine = Appsettings.ReadNode("ConnectionStrings:PgSql");
-            if (!string.IsNullOrWhiteSpace(appEngine)) sqlEngine = appEngine;
-
-            string tomlEngine = TomlSettings.ReadNode("ConnectionStrings:PgSql");
+            string appEngine = Appsettings.ReadNode("ConnectionStrings:SqlEngine");
+            if (!string.IsNullOrWhiteSpace(appEngine)) {  sqlEngine = appEngine;goto TomlEend; }
+            string tomlEngine = TomlSettings.ReadNode("ConnectionStrings:SqlEngine");
             if (!string.IsNullOrWhiteSpace(appEngine)) sqlEngine = tomlEngine;
+            TomlEend:;
             switch (sqlEngine)
             {
                 case "PgSql":

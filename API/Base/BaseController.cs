@@ -9,8 +9,16 @@ namespace API.Base
     //[CustomOrdersRoute]
     public class BaseController : Controller
     {
-        private readonly IMapper _mapper;
+        protected readonly IMapper _mapper;
+        protected readonly IHttpContextAccessor _contextAccessor;
+        protected readonly ILogger _logger;
 
+        public BaseController(IMapper mapper,ILogger logger, IHttpContextAccessor httpContextAccessor)
+        {
+            _mapper = mapper;
+            _contextAccessor = httpContextAccessor;
+            _logger = logger;
+        }
 
     }
 }

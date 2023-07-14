@@ -5,7 +5,7 @@ namespace BLL.Base
 {
     public class BaseBLL<T> : IBaseBLL<T> where T : class
     {
-        protected readonly IBaseDAL<T> _baseDal;
+        protected IBaseDAL<T> _baseDal { get; set; }
         public BaseBLL()
         {
             _baseDal = new BaseDAL<T>();

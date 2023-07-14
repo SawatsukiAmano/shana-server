@@ -18,7 +18,7 @@
 
         [MaxLength(50)]
         [Description("昵称")]
-        public string? NickName { get; set; }
+        public string? Nickname { get; set; }
 
         [MaxLength(50)]
         public string? EmployeeID { get; set; }

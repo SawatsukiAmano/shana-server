@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBLL
+namespace DAL
 {
-    public interface IBLLSysUser:Base.IBaseBLL<SysUser>
+    public class DALSysUserA1 : DALSysUser
     {
-
-        public string GetBll();
+        public override string GetDAL() => "subDAL";
     }
 }

@@ -4,6 +4,9 @@ namespace API.Controllers
 {
     public class AuthController : BaseController
     {
+        public AuthController(IMapper mapper, ILogger<AuthController> logger, IHttpContextAccessor httpContextAccessor) : base(mapper,logger, httpContextAccessor)
+        {
+        }
 
         [HttpGet]
         public string TestConf(string str)

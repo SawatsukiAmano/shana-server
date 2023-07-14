@@ -16,19 +16,24 @@ namespace API.Controllers
     {
         private readonly EFSqlContext _context;
 
-        public SysUsersController(EFSqlContext context)
+        public SysUsersController( IHttpContextAccessor httpContextAccessor)
         {
             _context = new EFSqlContext();
         }
+
+       
+        [HttpGet]
+        [Route("api/SysUsers/tt")]
+        public string TT() => "12";
 
         // GET: api/SysUsers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SysUser>>> GetSysUser()
         {
-          if (_context.SysUser == null)
-          {
-              return NotFound();
-          }
+            if (_context.SysUser == null)
+            {
+                return NotFound();
+            }
             return await _context.SysUser.ToListAsync();
         }
 
@@ -36,10 +41,10 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SysUser>> GetSysUser(string id)
         {
-          if (_context.SysUser == null)
-          {
-              return NotFound();
-          }
+            if (_context.SysUser == null)
+            {
+                return NotFound();
+            }
             var sysUser = await _context.SysUser.FindAsync(id);
 
             if (sysUser == null)
@@ -86,10 +91,10 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<SysUser>> PostSysUser(SysUser sysUser)
         {
-          if (_context.SysUser == null)
-          {
-              return Problem("Entity set 'EFPostgreSqlContext.SysUser'  is null.");
-          }
+            if (_context.SysUser == null)
+            {
+                return Problem("Entity set 'EFPostgreSqlContext.SysUser'  is null.");
+            }
             _context.SysUser.Add(sysUser);
             try
             {

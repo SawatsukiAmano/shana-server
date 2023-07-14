@@ -7,6 +7,5 @@ Init.InitDB();
 //Console.WriteLine(TomlSettings.ReadNode("ConnectionStrings:PgSql"));
 string path = "D:\\夏娜";
 
-
-Console.ReadKey();
+Console.WriteLine(path);
 //Console.WriteLine(string.Join(",", list));

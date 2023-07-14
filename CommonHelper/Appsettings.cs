@@ -14,11 +14,11 @@ namespace CommonHelper
         {
             string path = "appsettings.json";
 
-            //如果你把配置文件 是 根据环境变量来分开了，可以这样写
             path = $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json";
 
             _configuration = new ConfigurationBuilder()
                .SetBasePath(contentPath)
+               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                .Add(new JsonConfigurationSource { Path = path, Optional = false, ReloadOnChange = true })//这样的话，可以直接读目录里的json文件，而不是 bin 文件夹下的，所以不用修改复制属性
                .Build();
         }
@@ -32,7 +32,7 @@ namespace CommonHelper
 
         public static string ReadNode(string session)
         {
-            if(_configuration==null) return string.Empty;
+            if (_configuration == null) return string.Empty;
             string str = _configuration[session];
             if (!string.IsNullOrEmpty(str)) return str;
             return string.Empty;

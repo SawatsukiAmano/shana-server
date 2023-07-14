@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace CommonHelper
 {
-    public class MyProfile : Profile
+    public class StaticValue
     {
-        public MyProfile()
-        {
+        public readonly static string ResourcePath = Appsettings.ReadNode("SysSetting:ResourcePath");
 
-        }
     }
 }
