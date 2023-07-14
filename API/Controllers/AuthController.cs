@@ -10,13 +10,42 @@ namespace API.Controllers
         {
             return Appsettings.ReadNode(str);
         }
+        [HttpGet]
+        public string TestGet111(string str, string strABcAC)
+        {
+            return str + strABcAC;
+        }
 
+
+        [HttpGet]
+        public SysUser Test()
+        {
+            return new SysUser() { UserID = Guid.NewGuid().ToString() };
+        }
+
+        [HttpPost]
+        public SysUser Test2(SysUser user)
+        {
+            return user;
+        }
+
+        [HttpPost]
+        public string Test3( SysUser user)
+        {
+            return "33";
+        }
+
+        [HttpPost]
+        public string Test4(int a)
+        {
+            return "4567:"+a;
+        }
 
         [HttpPost]
         public ActionResult Login()
         {
             var one = new BaseBLL<SysUser>().FirstOrDefaultSync(x => x.UserName == "1").Result;
-            if(one == null) Content("false");
+            if (one == null) Content("false");
             if (one != null)
             {
 

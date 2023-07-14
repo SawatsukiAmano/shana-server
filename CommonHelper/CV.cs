@@ -11,12 +11,13 @@ namespace CommonHelper
     public static class CV
     {
 
+
         /// <summary>
         /// 大驼峰转蛇形
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string PascalUp2Snake(string str)
+        public static string Pascal2Snake(string str)
         {
             var result = "";
             int index = 0;

@@ -13,7 +13,7 @@ namespace DbMigrator
         public static bool InitDB()
         {
 
-            using (var db = new EFPostgreSqlContext(true))
+            using (var db = new EFSqlContext(true))
             {
                 AdmDepartment admDepartment = new AdmDepartment()
                 {

@@ -13,10 +13,10 @@ namespace DAL.Base
     public class BaseDAL<T> : IBaseDAL<T> where T : class
     {
 
-        private readonly EFPostgreSqlContext _context;
+        private readonly EFSqlContext _context;
         public BaseDAL()
         {
-            _context = new EFPostgreSqlContext();
+            _context = new EFSqlContext();
         }
 
         #region DQL Sync

@@ -1,10 +1,12 @@
 ﻿
 
+
 namespace API.Base
 {
 
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]/[action]")]
+    //[CustomOrdersRoute]
     public class BaseController : Controller
     {
         private readonly IMapper _mapper;

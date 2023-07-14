@@ -6,11 +6,11 @@
         [Key]
         [MaxLength(50)]
         [Description("主键")]
-        public string UserID { get; set; }
+        public string? UserID { get; set; }
 
         [MaxLength(50)]
         [Description("用户名")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [MaxLength(50)]
         [Description("密码")]
@@ -21,7 +21,7 @@
         public string? NickName { get; set; }
 
         [MaxLength(50)]
-        public string EmployeeID { get; set; }
+        public string? EmployeeID { get; set; }
 
         [Description("创建时间")]
         public DateTimeOffset CreateAt { get; set; }

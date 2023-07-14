@@ -32,6 +32,7 @@ namespace CommonHelper
 
         public static string ReadNode(string session)
         {
+            if(_configuration==null) return string.Empty;
             string str = _configuration[session];
             if (!string.IsNullOrEmpty(str)) return str;
             return string.Empty;
@@ -43,6 +44,7 @@ namespace CommonHelper
         /// <returns></returns>
         public static string ReadNode(params string[] sessions)
         {
+            if (_configuration == null) return string.Empty;
             if (sessions.Length == 1) return _configuration[sessions[0]];
             string? str = _configuration[string.Join(":", sessions)];
             if (!string.IsNullOrEmpty(str)) return str;
@@ -56,6 +58,7 @@ namespace CommonHelper
         /// <returns></returns>
         public static T ReadT<T>(params string[] sessions) where T : class, new()
         {
+            if (_configuration == null) return null;
             T data = new();
             _configuration.Bind(string.Join(":", sessions), data);
             return data;
@@ -68,6 +71,7 @@ namespace CommonHelper
         /// <returns></returns>
         public static List<T> ReadList<T>(params string[] sessions) where T : class
         {
+            if (_configuration == null) return null;
             List<T> list = new();
             _configuration.Bind(string.Join(":", sessions), list);
             return list;
