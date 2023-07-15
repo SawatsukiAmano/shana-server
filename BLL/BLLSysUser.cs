@@ -6,13 +6,12 @@ namespace BLL
     public class BLLSysUser : BaseBLL<SysUser>, IBLLSysUser
     {
         protected readonly IDALSysUser _dalSysUser;
-        public BLLSysUser() { 
-        }
 
-        public BLLSysUser(IDALSysUser dal)
+        public BLLSysUser(IEnumerable<IDALSysUser> dal)
         {
-            this._dalSysUser = dal;
-            base._baseDal = dal;
+            var dalName = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name.Replace("BLL", "DAL");
+            _dalSysUser = dal.First(x => x.GetType().Name == dalName);
+            _baseDal = _dalSysUser;
         }
 
         public virtual string GetStr() => "main";
@@ -21,7 +20,7 @@ namespace BLL
 
         public virtual string GetBll()
         {
-            return "mainBLL"+":"+_dalSysUser.GetDAL();
+            return "mainBLL" + ":" + _dalSysUser.GetDAL();
         }
     }
 }

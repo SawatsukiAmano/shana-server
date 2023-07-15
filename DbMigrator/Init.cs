@@ -38,7 +38,7 @@ namespace DbMigrator
                     UserName = "admin",
                     Password = CommonHelper.CV.ComputeMD5("admin"),
                     CreateAt = DateTime.Now,
-                    NickName = "admin",
+                    Nickname = "admin",
                     EmployeeID = admEmployee.EmployeeID,
                 };
                 db.Add(user);

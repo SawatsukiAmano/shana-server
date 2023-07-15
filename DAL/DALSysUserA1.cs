@@ -8,6 +8,6 @@ namespace DAL
 {
     public class DALSysUserA1 : DALSysUser
     {
-        public override string GetDAL() => "subDAL";
+        public override string GetDAL() => "subDALA1";
     }
 }

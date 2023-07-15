@@ -1,6 +1,8 @@
 ﻿
 using AutoMapper;
+using CommonHelper;
 using IBLL;
+using log4net;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Controllers
@@ -9,14 +11,20 @@ namespace API.Controllers
     [Description("资源控制器")]
     public class ResourceController : BaseController
     {
-        private string _path => StaticValue.ResourcePath;
+        private readonly ILog _log4;
         private readonly IBLLSysUser _user;
-        public ResourceController(IBLLSysUser user,IMapper mapper, ILogger<ResourceController> logger, IHttpContextAccessor httpContextAccessor) : base(mapper,logger, httpContextAccessor)
+        public ResourceController(IEnumerable<IBLLSysUser> users, IMapper mapper, ILogger<ResourceController> logger, IHttpContextAccessor httpContextAccessor) : base(mapper, logger,  httpContextAccessor)
         {
-            _user = user;
+            _user = users.First(s=>s.GetType().Name== "BLLSysUser");
+            _log4 = new Log<ResourceController>()._log4;
         }
+        private string _path => StaticValue.ResourcePath;
 
-        [Description("获取所有路径")]
+
+        /// <summary>
+        /// 获取所有路径
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public string ListResource()
         {
@@ -32,7 +40,7 @@ namespace API.Controllers
             _logger.LogWarning("警告日志");
             _logger.LogCritical("严重日志");
             _logger.LogError("错误日志");
-            return new BLL.BLLSysUser().GetStr()+":"+ new BLL.BLLSysUserA1().GetStr();
+            return "tt" + DateTime.Now.ToString();
         }
 
         [HttpGet]
